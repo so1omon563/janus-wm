@@ -8,3 +8,9 @@ DerivedData/
 # Swift Package Manager
 .build/
 .swiftpm/
+
+# Local app bundle staging
+dist/
+
+# Local development signing material
+.local-signing/

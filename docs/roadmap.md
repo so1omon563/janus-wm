@@ -33,6 +33,7 @@ Milestone 3 - Polishing
 * Visual indicators
 * Improved transitions
 * Better onboarding
+* Layout padding preference
 
 Success Criteria:
 
@@ -57,6 +58,7 @@ Future Exploration
 * Rules
 * Workspace concepts
 * Automation
+* Automatic updates with Sparkle
 * Plugin system
 
 These are explicitly out of scope for the MVP.
