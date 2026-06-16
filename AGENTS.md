@@ -6,7 +6,8 @@ Before making changes:
 
 1. Read AGENTS.md
 2. Read docs/vision.md
-3. Follow AGENTS.md if there is any conflict
+3. Read docs/learning.md
+4. Follow AGENTS.md if there is any conflict
 
 ---
 
@@ -75,6 +76,13 @@ Do not require keyboard-driven workflows.
 ### Visual Feedback Is Required
 
 Users should understand why a window moved.
+
+### Learning Is Part Of The Project
+
+Janus is being built as both a product and a learning process.
+
+Explain unfamiliar Swift, SwiftUI, Xcode, and macOS concepts when they appear.
+Prefer small, understandable steps over large opaque jumps.
 
 ---
 
