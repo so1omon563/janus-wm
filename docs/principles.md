@@ -1,0 +1,15 @@
+- Configuration is a last resort.
+- Floating windows are first-class citizens.
+- User intent beats layout purity.
+- Windows should feel stable.
+- Layouts serve the user.
+- Native beats clever.
+- Every action should be discoverable.
+- Visual feedback is functionality.
+- Mouse workflows are first-class.
+- Escape hatches must always exist.
+- Progressive complexity over upfront complexity.
+- The default experience matters more than edge cases.
+- No SIP modifications.
+- No private APIs.
+- Simplicity beats flexibility during MVP development.
