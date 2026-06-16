@@ -5,6 +5,7 @@ struct ContentView: View {
     @EnvironmentObject private var accessibilityManager: AccessibilityManager
     @EnvironmentObject private var windowTracker: WindowTracker
     @EnvironmentObject private var windowStateStore: WindowStateStore
+    private let layoutEngine = LayoutEngine()
     @State private var selectedWindowID: WindowInfo.ID?
     @State private var restoreFrames: [WindowInfo.ID: CGRect] = [:]
 
@@ -292,7 +293,10 @@ struct ContentView: View {
             return
         }
 
-        let frames = horizontalFrames(for: windows.count)
+        let frames = layoutEngine.horizontalFrames(
+            count: windows.count,
+            in: mainScreenVisibleFrameForAccessibility()
+        )
         var movedCount = 0
 
         for (window, frame) in zip(windows, frames) {
@@ -307,29 +311,6 @@ struct ContentView: View {
 
         windowTracker.setActionMessage("Applied managed layout to \(movedCount) of \(windows.count) windows.")
         refreshPermissionAndWindows()
-    }
-
-    private func horizontalFrames(for count: Int) -> [CGRect] {
-        guard count > 0 else {
-            return []
-        }
-
-        let layoutBounds = mainScreenVisibleFrameForAccessibility()
-        let margin: CGFloat = 12
-        let gap: CGFloat = 12
-        let totalGap = gap * CGFloat(max(count - 1, 0))
-        let availableWidth = max(300, layoutBounds.width - (margin * 2) - totalGap)
-        let availableHeight = max(360, layoutBounds.height - (margin * 2))
-        let windowWidth = availableWidth / CGFloat(count)
-
-        return (0..<count).map { index in
-            CGRect(
-                x: layoutBounds.minX + margin + (CGFloat(index) * (windowWidth + gap)),
-                y: layoutBounds.minY + margin,
-                width: windowWidth,
-                height: availableHeight
-            )
-        }
     }
 
     private func mainScreenVisibleFrameForAccessibility() -> CGRect {

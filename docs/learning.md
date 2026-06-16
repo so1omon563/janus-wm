@@ -191,6 +191,23 @@ Before moving each managed window, Janus caches that window's previous frame in
 the temporary restore state. This keeps the first layout action reversible while
 the project is still proving the primitive behavior.
 
+## Layout Engine Extraction
+
+Once the horizontal split worked in real use, Janus moved the frame calculation
+out of `ContentView` and into `LayoutEngine`.
+
+`LayoutEngine` is intentionally a pure calculation type. It receives a window
+count and layout bounds, then returns the frames Janus should apply. It does not
+know about SwiftUI, Accessibility permission, or live `AXUIElement` windows.
+That separation lets the project test layout behavior without moving real
+windows.
+
+The first tests cover:
+
+- No frames when there are no managed windows.
+- Even horizontal splitting with margins and gaps.
+- Minimum tile sizes when the available bounds are too small.
+
 ## Local Accessibility Trust And Signing
 
 macOS Accessibility permission is tied to the app's code identity. During local

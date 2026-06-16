@@ -17,6 +17,11 @@ let package = Package(
         .executableTarget(
             name: "Janus",
             path: "Janus"
+        ),
+        .testTarget(
+            name: "JanusTests",
+            dependencies: ["Janus"],
+            path: "Tests/JanusTests"
         )
     ]
 )
