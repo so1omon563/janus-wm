@@ -15,11 +15,12 @@ Janus has the core window-control primitives in place:
 Current focus:
 
 - Keep managed layout behavior explicit and reversible.
-- Prove Auto Reflow with real windows after refresh and tile/float changes.
+- Auto Reflow has been manually verified with real windows after refresh and
+  tile/float changes.
 - Avoid background window watching until the manual and opt-in behavior feels
   reliable.
 
 Next success criteria:
 
-Open or close a managed window, refresh the list, and Janus reapplies the
-managed layout when Auto Reflow is enabled.
+Detect a visible managed-window set change and offer a cautious path to reapply
+the managed layout without surprising the user.
