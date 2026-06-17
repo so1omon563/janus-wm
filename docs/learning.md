@@ -208,6 +208,24 @@ The first tests cover:
 - Even horizontal splitting with margins and gaps.
 - Minimum tile sizes when the available bounds are too small.
 
+## Automatic Managed Reflow
+
+The first automatic layout behavior is still opt-in. Janus adds an `Auto Reflow`
+toggle near the existing `Apply Managed Layout` action.
+
+When enabled, Janus reapplies the managed layout after refreshing the visible
+window list or after changing a selected window between `Floating` and
+`Managed`. This keeps the behavior discoverable and reversible while the project
+is still proving the window movement primitive.
+
+The toggle uses SwiftUI's `@AppStorage`, which stores a simple user preference
+in `UserDefaults`. This is a good fit for small app-wide preferences because
+SwiftUI updates the view when the value changes and persists it across launches.
+
+`ManagedReflowPolicy` owns the small decision of whether a reflow should happen.
+It stays separate from SwiftUI and Accessibility so the policy can be tested
+without moving real windows.
+
 ## Local Accessibility Trust And Signing
 
 macOS Accessibility permission is tied to the app's code identity. During local

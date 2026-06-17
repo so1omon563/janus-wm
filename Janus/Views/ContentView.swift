@@ -6,6 +6,10 @@ struct ContentView: View {
     @EnvironmentObject private var windowTracker: WindowTracker
     @EnvironmentObject private var windowStateStore: WindowStateStore
     private let layoutEngine = LayoutEngine()
+    private var reflowPolicy: ManagedReflowPolicy {
+        ManagedReflowPolicy(isEnabled: autoReflowManagedWindows)
+    }
+    @AppStorage("autoReflowManagedWindows") private var autoReflowManagedWindows = false
     @State private var selectedWindowID: WindowInfo.ID?
     @State private var restoreFrames: [WindowInfo.ID: CGRect] = [:]
 
@@ -113,6 +117,14 @@ struct ContentView: View {
                 }
                 .disabled(managedWindows.isEmpty)
 
+                Toggle("Auto Reflow", isOn: $autoReflowManagedWindows)
+                    .toggleStyle(.switch)
+                    .onChange(of: autoReflowManagedWindows) { _, isEnabled in
+                        if isEnabled {
+                            reflowManagedWindowsIfNeeded()
+                        }
+                    }
+
                 Button("Refresh") {
                     refreshPermissionAndWindows()
                 }
@@ -152,12 +164,15 @@ struct ContentView: View {
         }
     }
 
-    private func refreshPermissionAndWindows() {
+    private func refreshPermissionAndWindows(reflowIfEnabled: Bool = true) {
         accessibilityManager.refresh()
 
         if accessibilityManager.isTrusted {
             windowTracker.refreshWindows()
             clearSelectionIfNeeded()
+            if reflowIfEnabled {
+                reflowManagedWindowsIfNeeded()
+            }
         }
     }
 
@@ -247,6 +262,7 @@ struct ContentView: View {
             windowStateStore.mode(for: window)
         } set: { mode in
             windowStateStore.setMode(mode, for: window)
+            reflowManagedWindowsIfNeeded()
         }
     }
 
@@ -310,7 +326,15 @@ struct ContentView: View {
         }
 
         windowTracker.setActionMessage("Applied managed layout to \(movedCount) of \(windows.count) windows.")
-        refreshPermissionAndWindows()
+        refreshPermissionAndWindows(reflowIfEnabled: false)
+    }
+
+    private func reflowManagedWindowsIfNeeded() {
+        guard reflowPolicy.shouldReflow(managedWindowCount: managedWindows.count) else {
+            return
+        }
+
+        applyManagedLayout()
     }
 
     private func mainScreenVisibleFrameForAccessibility() -> CGRect {
