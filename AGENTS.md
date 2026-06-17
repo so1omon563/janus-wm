@@ -119,3 +119,19 @@ Before implementing a feature ask:
 - Is configuration required?
 
 If multiple solutions exist, choose the simpler one.
+
+---
+
+## Brand Alignment
+
+Janus is a thoughtful macOS window manager.
+
+When multiple implementation approaches are possible:
+
+1. Prefer approaches that require less configuration.
+2. Prefer sensible defaults over additional options.
+3. Prefer native macOS behaviors over imported Linux window manager paradigms.
+4. Prefer discoverability over documentation.
+5. Prefer consistency over feature count.
+
+Features should feel calm, predictable, and approachable.

@@ -45,6 +45,7 @@ Project Structure
 
 docs/
 vision.md
+brand.md
 architecture.md
 current-work.md
 decisions.md
