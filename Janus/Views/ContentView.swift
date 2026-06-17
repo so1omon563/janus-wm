@@ -12,6 +12,7 @@ struct ContentView: View {
     @AppStorage("autoReflowManagedWindows") private var autoReflowManagedWindows = false
     @State private var selectedWindowID: WindowInfo.ID?
     @State private var restoreFrames: [WindowInfo.ID: CGRect] = [:]
+    @State private var lastManagedWindowKeys: Set<String>?
 
     var body: some View {
         ScrollView {
@@ -164,14 +165,22 @@ struct ContentView: View {
         }
     }
 
-    private func refreshPermissionAndWindows(reflowIfEnabled: Bool = true) {
+    private func refreshPermissionAndWindows(detectManagedWindowSetChanges: Bool = true) {
         accessibilityManager.refresh()
 
         if accessibilityManager.isTrusted {
+            let previousManagedWindowKeys = lastManagedWindowKeys
+
             windowTracker.refreshWindows()
             clearSelectionIfNeeded()
-            if reflowIfEnabled {
-                reflowManagedWindowsIfNeeded()
+
+            if detectManagedWindowSetChanges {
+                handleManagedWindowSetChange(
+                    previousKeys: previousManagedWindowKeys,
+                    currentKeys: currentManagedWindowKeys
+                )
+            } else {
+                syncManagedWindowSetBaseline()
             }
         }
     }
@@ -186,6 +195,10 @@ struct ContentView: View {
 
     private var managedWindows: [WindowInfo] {
         windowTracker.windows.filter { windowStateStore.mode(for: $0) == .managed }
+    }
+
+    private var currentManagedWindowKeys: Set<String> {
+        Set(managedWindows.map(\.stateKey))
     }
 
     private var selectedWindowDetail: some View {
@@ -262,6 +275,7 @@ struct ContentView: View {
             windowStateStore.mode(for: window)
         } set: { mode in
             windowStateStore.setMode(mode, for: window)
+            syncManagedWindowSetBaseline()
             reflowManagedWindowsIfNeeded()
         }
     }
@@ -326,7 +340,25 @@ struct ContentView: View {
         }
 
         windowTracker.setActionMessage("Applied managed layout to \(movedCount) of \(windows.count) windows.")
-        refreshPermissionAndWindows(reflowIfEnabled: false)
+        refreshPermissionAndWindows(detectManagedWindowSetChanges: false)
+    }
+
+    private func handleManagedWindowSetChange(previousKeys: Set<String>?, currentKeys: Set<String>) {
+        let decision = reflowPolicy.decisionForWindowSetChange(
+            previousKeys: previousKeys,
+            currentKeys: currentKeys
+        )
+
+        syncManagedWindowSetBaseline()
+
+        switch decision {
+        case .none:
+            return
+        case .notify:
+            windowTracker.setActionMessage("Managed windows changed. Press Apply Managed Layout or enable Auto Reflow.")
+        case .reflow:
+            applyManagedLayout()
+        }
     }
 
     private func reflowManagedWindowsIfNeeded() {
@@ -335,6 +367,10 @@ struct ContentView: View {
         }
 
         applyManagedLayout()
+    }
+
+    private func syncManagedWindowSetBaseline() {
+        lastManagedWindowKeys = currentManagedWindowKeys
     }
 
     private func mainScreenVisibleFrameForAccessibility() -> CGRect {

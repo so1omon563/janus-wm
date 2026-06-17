@@ -226,6 +226,25 @@ SwiftUI updates the view when the value changes and persists it across launches.
 It stays separate from SwiftUI and Accessibility so the policy can be tested
 without moving real windows.
 
+## Managed Window Set Changes
+
+After Auto Reflow worked with real windows, Janus added a cautious refresh-time
+change detector for the visible managed-window set.
+
+The first trusted refresh records a baseline set of managed window keys. Later
+refreshes compare the new set to that baseline:
+
+- If the set did not change, Janus does not reapply layout just because Refresh
+  was pressed.
+- If the set changed and Auto Reflow is enabled, Janus reapplies the managed
+  layout.
+- If the set changed and Auto Reflow is disabled, Janus shows a status message
+  instead of moving windows.
+
+This keeps automatic behavior tied to visible user intent. Janus still avoids a
+background window watcher at this stage; refresh remains the explicit moment
+when Janus looks for open or closed managed windows.
+
 ## Local Accessibility Trust And Signing
 
 macOS Accessibility permission is tied to the app's code identity. During local

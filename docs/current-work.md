@@ -17,10 +17,11 @@ Current focus:
 - Keep managed layout behavior explicit and reversible.
 - Auto Reflow has been manually verified with real windows after refresh and
   tile/float changes.
-- Avoid background window watching until the manual and opt-in behavior feels
-  reliable.
+- Detect managed-window set changes during Refresh before adding background
+  window watching.
 
 Next success criteria:
 
-Detect a visible managed-window set change and offer a cautious path to reapply
-the managed layout without surprising the user.
+Open or close a managed window, press Refresh, and Janus either reapplies the
+managed layout when Auto Reflow is enabled or explains the manual path when Auto
+Reflow is disabled.
