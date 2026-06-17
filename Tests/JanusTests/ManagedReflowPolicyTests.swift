@@ -20,6 +20,18 @@ final class ManagedReflowPolicyTests: XCTestCase {
         XCTAssertTrue(policy.shouldReflow(managedWindowCount: 1))
     }
 
+    func testDisabledPolicyDoesNotRefreshForWorkspaceEvents() {
+        let policy = ManagedReflowPolicy(isEnabled: false)
+
+        XCTAssertFalse(policy.shouldRefreshForWorkspaceEvent())
+    }
+
+    func testEnabledPolicyRefreshesForWorkspaceEvents() {
+        let policy = ManagedReflowPolicy(isEnabled: true)
+
+        XCTAssertTrue(policy.shouldRefreshForWorkspaceEvent())
+    }
+
     func testWindowSetDecisionDoesNothingBeforeBaselineExists() {
         let policy = ManagedReflowPolicy(isEnabled: true)
 

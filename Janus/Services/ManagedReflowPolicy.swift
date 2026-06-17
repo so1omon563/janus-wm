@@ -11,6 +11,10 @@ struct ManagedReflowPolicy {
         isEnabled && managedWindowCount > 0
     }
 
+    func shouldRefreshForWorkspaceEvent() -> Bool {
+        isEnabled
+    }
+
     func decisionForWindowSetChange(previousKeys: Set<String>?, currentKeys: Set<String>) -> ManagedReflowDecision {
         guard !currentKeys.isEmpty,
               let previousKeys,

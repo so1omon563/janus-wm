@@ -36,6 +36,15 @@ struct ContentView: View {
         .onAppear {
             refreshPermissionAndWindows()
         }
+        .onReceive(NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.didLaunchApplicationNotification)) { _ in
+            refreshForWorkspaceChangeIfNeeded()
+        }
+        .onReceive(NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.didTerminateApplicationNotification)) { _ in
+            refreshForWorkspaceChangeIfNeeded()
+        }
+        .onReceive(NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.didActivateApplicationNotification)) { _ in
+            refreshForWorkspaceChangeIfNeeded()
+        }
     }
 
     private var header: some View {
@@ -367,6 +376,14 @@ struct ContentView: View {
         }
 
         applyManagedLayout()
+    }
+
+    private func refreshForWorkspaceChangeIfNeeded() {
+        guard reflowPolicy.shouldRefreshForWorkspaceEvent() else {
+            return
+        }
+
+        refreshPermissionAndWindows()
     }
 
     private func syncManagedWindowSetBaseline() {

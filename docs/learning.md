@@ -245,6 +245,23 @@ This keeps automatic behavior tied to visible user intent. Janus still avoids a
 background window watcher at this stage; refresh remains the explicit moment
 when Janus looks for open or closed managed windows.
 
+## Workspace Change Refresh
+
+After refresh-time managed-window set detection worked with real windows, Janus
+started listening to a small set of public `NSWorkspace` notifications:
+
+- App launched
+- App terminated
+- App activated
+
+These notifications do not move windows directly. They only ask Janus to refresh
+the visible window list when Auto Reflow is enabled. The managed-window set
+comparison still decides whether anything should happen after that refresh.
+
+This keeps the first automatic trigger narrow: Auto Reflow off means workspace
+events do nothing, and repeated events with no managed-window set change should
+not reapply layout.
+
 ## Local Accessibility Trust And Signing
 
 macOS Accessibility permission is tied to the app's code identity. During local

@@ -19,8 +19,10 @@ Current focus:
   tile/float changes.
 - Managed-window set changes during Refresh have been manually verified with
   Auto Reflow enabled and disabled.
+- Workspace app launch, terminate, and activation events now trigger the same
+  managed-window set check only when Auto Reflow is enabled.
 
 Next success criteria:
 
-Choose the first low-surprise path for noticing window changes without requiring
-manual Refresh every time.
+Open, close, or activate apps with Auto Reflow enabled and confirm Janus only
+reapplies layout when the visible managed-window set actually changes.
