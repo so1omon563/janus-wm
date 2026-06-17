@@ -97,6 +97,32 @@ Tomorrowland-era design.
 Janus should feel less like a developer tool and more like a well-crafted
 object.
 
+## Canonical Brand Reference
+
+The current Janus visual direction is represented by the Concept G + Travertine
+icon exploration.
+
+![Concept G + Travertine icon exploration](design/icon-concept-g-travertine.jpg)
+
+This image should be treated as the primary visual reference for future design
+work. It is not just a logo draft; it is the result of the current brand
+decisions around Janus.
+
+Key attributes:
+
+- Gateway is the primary symbol.
+- Split-window is revealed through observation.
+- Architectural rather than technological.
+- Calm rather than energetic.
+- Thoughtful rather than powerful.
+- Material-inspired rather than software-inspired.
+- Mid-century modern and optimistic retro-futurist influences.
+- Native to macOS.
+- Timeless over trendy.
+
+Future UI, onboarding, documentation, website, screenshots, and marketing work
+should align with these principles.
+
 ## Color Direction
 
 ### Primary

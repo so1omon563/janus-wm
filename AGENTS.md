@@ -135,3 +135,26 @@ When multiple implementation approaches are possible:
 5. Prefer consistency over feature count.
 
 Features should feel calm, predictable, and approachable.
+
+### Visual Design
+
+When creating UI, branding, documentation, screenshots, onboarding flows, or
+marketing assets, reference the canonical Concept G + Travertine design
+direction in docs/brand.md.
+
+Janus should feel:
+
+- Thoughtful
+- Architectural
+- Calm
+- Native
+- Approachable
+
+Avoid:
+
+- Hacker aesthetics
+- Gaming aesthetics
+- Neon colors
+- Aggressive productivity branding
+- Overly technical terminology
+- Visual clutter
