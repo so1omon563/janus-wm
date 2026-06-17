@@ -79,6 +79,24 @@ default experience heavier for beginners.
 - Hacker aesthetics
 - Linux window manager aesthetics
 
+## Design Influences
+
+Janus draws inspiration from architecture, mid-century modern design, and
+optimistic retro-futurism.
+
+The goal is not nostalgia. The goal is timelessness.
+
+Like the best mid-century objects, Janus should feel thoughtfully designed,
+approachable, and useful. Technology exists to reduce friction and improve
+everyday workflows, not to demand attention.
+
+Visual references include architectural thresholds, natural materials,
+modernist typography, and the human-centered optimism of classic
+Tomorrowland-era design.
+
+Janus should feel less like a developer tool and more like a well-crafted
+object.
+
 ## Color Direction
 
 ### Primary
