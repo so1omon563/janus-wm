@@ -20,9 +20,10 @@ Current focus:
 - Managed-window set changes during Refresh have been manually verified with
   Auto Reflow enabled and disabled.
 - Workspace app launch, terminate, and activation events now trigger the same
-  managed-window set check only when Auto Reflow is enabled.
+  managed-window set check only when Auto Reflow is enabled, and this behavior
+  has been manually verified.
 
 Next success criteria:
 
-Open, close, or activate apps with Auto Reflow enabled and confirm Janus only
-reapplies layout when the visible managed-window set actually changes.
+Choose the next reliability improvement now that the first low-surprise
+automatic refresh trigger is working.
