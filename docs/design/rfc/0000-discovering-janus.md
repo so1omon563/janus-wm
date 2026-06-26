@@ -5,11 +5,11 @@
 Capture the discoveries that established the design foundation of the Janus
 project.
 
-## Initial Question
+## Question
 
 What problem is Janus actually solving?
 
-## Discovery
+## Observations
 
 Janus is not fundamentally a window manager.
 
@@ -18,7 +18,12 @@ maintaining context while working.
 
 Window management is an implementation strategy. It is not the product.
 
-## Key Discoveries
+## What Surprised Us
+
+The important discovery was not a better layout. It was that layout is only one
+way to express and recover context.
+
+## Current Belief
 
 - Context precedes layout.
 - Layouts are implementations of context.
@@ -31,7 +36,17 @@ Window management is an implementation strategy. It is not the product.
 - Janus is discovered, not invented.
 - Design artifacts deserve the same stewardship as source code.
 
-## Development Process
+## Evidence
+
+The project repeatedly returned to the same product pressure: window movement,
+layout, automation, and visual feedback only matter when they help someone
+recover and maintain work context.
+
+## Confidence
+
+High.
+
+## Implications
 
 Major features should generally follow this lifecycle:
 
@@ -50,10 +65,6 @@ Implementation should generally occur after the design reasoning has been
 captured.
 
 The goal is not simply to preserve code. The goal is to preserve understanding.
-
-## Confidence
-
-High.
 
 ## Open Questions
 

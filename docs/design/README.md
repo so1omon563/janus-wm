@@ -8,9 +8,12 @@ after the software exists; they describe the intent the software should express.
 Janus separates design, architecture, and implementation because they evolve at
 different speeds:
 
+- Beliefs explain why Janus exists.
+- Principles explain how Janus behaves.
 - Design records what Janus is trying to make true for people.
-- Architecture records how the system is shaped to support that intent.
-- Implementation records the current executable expression of both.
+- Design explores how those principles are expressed.
+- Architecture supports that design.
+- Implementation realizes it.
 
 The living documents in this directory may change as the project learns. RFCs
 do not change. When Janus learns something important enough to revise an older
