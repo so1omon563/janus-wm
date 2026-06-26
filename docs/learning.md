@@ -262,6 +262,23 @@ This keeps the first automatic trigger narrow: Auto Reflow off means workspace
 events do nothing, and repeated events with no managed-window set change should
 not reapply layout.
 
+## Reflow Status Diagnostics
+
+Before adding richer visual feedback, Janus first explains automatic behavior
+through the existing status line.
+
+Managed-window refreshes now distinguish between:
+
+- Recording the first managed-window baseline.
+- Finding no managed windows.
+- Finding no managed-window changes.
+- Detecting a managed-window change while Auto Reflow is off.
+- Reapplying layout because Auto Reflow is on.
+
+This is deliberately plain text. It gives the project enough feedback to debug
+the automation before spending design time on overlays, animations, or a more
+polished status surface.
+
 ## Local Accessibility Trust And Signing
 
 macOS Accessibility permission is tied to the app's code identity. During local

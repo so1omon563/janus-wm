@@ -32,25 +32,25 @@ final class ManagedReflowPolicyTests: XCTestCase {
         XCTAssertTrue(policy.shouldRefreshForWorkspaceEvent())
     }
 
-    func testWindowSetDecisionDoesNothingBeforeBaselineExists() {
+    func testWindowSetDecisionRecordsBaselineBeforeBaselineExists() {
         let policy = ManagedReflowPolicy(isEnabled: true)
 
         XCTAssertEqual(
             policy.decisionForWindowSetChange(previousKeys: nil, currentKeys: ["Finder|Downloads"]),
-            .none
+            .baselineRecorded
         )
     }
 
-    func testWindowSetDecisionDoesNothingWhenCurrentSetIsEmpty() {
+    func testWindowSetDecisionReportsNoManagedWindowsWhenCurrentSetIsEmpty() {
         let policy = ManagedReflowPolicy(isEnabled: true)
 
         XCTAssertEqual(
             policy.decisionForWindowSetChange(previousKeys: ["Finder|Downloads"], currentKeys: []),
-            .none
+            .noManagedWindows
         )
     }
 
-    func testWindowSetDecisionDoesNothingWhenSetIsUnchanged() {
+    func testWindowSetDecisionReportsUnchangedSet() {
         let policy = ManagedReflowPolicy(isEnabled: true)
 
         XCTAssertEqual(
@@ -58,7 +58,7 @@ final class ManagedReflowPolicyTests: XCTestCase {
                 previousKeys: ["Finder|Downloads", "Safari|Janus"],
                 currentKeys: ["Finder|Downloads", "Safari|Janus"]
             ),
-            .none
+            .unchanged
         )
     }
 

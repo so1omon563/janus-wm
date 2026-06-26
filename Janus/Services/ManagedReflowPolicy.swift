@@ -1,5 +1,7 @@
 enum ManagedReflowDecision: Equatable {
-    case none
+    case baselineRecorded
+    case noManagedWindows
+    case unchanged
     case notify
     case reflow
 }
@@ -16,10 +18,16 @@ struct ManagedReflowPolicy {
     }
 
     func decisionForWindowSetChange(previousKeys: Set<String>?, currentKeys: Set<String>) -> ManagedReflowDecision {
-        guard !currentKeys.isEmpty,
-              let previousKeys,
-              previousKeys != currentKeys else {
-            return .none
+        guard !currentKeys.isEmpty else {
+            return .noManagedWindows
+        }
+
+        guard let previousKeys else {
+            return .baselineRecorded
+        }
+
+        guard previousKeys != currentKeys else {
+            return .unchanged
         }
 
         return isEnabled ? .reflow : .notify

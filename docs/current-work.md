@@ -22,8 +22,10 @@ Current focus:
 - Workspace app launch, terminate, and activation events now trigger the same
   managed-window set check only when Auto Reflow is enabled, and this behavior
   has been manually verified.
+- Reflow diagnostics now use the existing status line to explain baseline,
+  no-change, manual-path, and automatic-layout outcomes.
 
 Next success criteria:
 
-Choose the next reliability improvement now that the first low-surprise
-automatic refresh trigger is working.
+Verify the status line explains why Janus did or did not reapply layout before
+moving to richer design work.

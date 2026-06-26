@@ -174,7 +174,7 @@ struct ContentView: View {
         }
     }
 
-    private func refreshPermissionAndWindows(detectManagedWindowSetChanges: Bool = true) {
+    private func refreshPermissionAndWindows(reason: String = "Refresh", detectManagedWindowSetChanges: Bool = true) {
         accessibilityManager.refresh()
 
         if accessibilityManager.isTrusted {
@@ -186,7 +186,8 @@ struct ContentView: View {
             if detectManagedWindowSetChanges {
                 handleManagedWindowSetChange(
                     previousKeys: previousManagedWindowKeys,
-                    currentKeys: currentManagedWindowKeys
+                    currentKeys: currentManagedWindowKeys,
+                    reason: reason
                 )
             } else {
                 syncManagedWindowSetBaseline()
@@ -326,7 +327,7 @@ struct ContentView: View {
         }
     }
 
-    private func applyManagedLayout() {
+    private func applyManagedLayout(reason: String? = nil) {
         let windows = managedWindows
         guard !windows.isEmpty else {
             return
@@ -348,11 +349,12 @@ struct ContentView: View {
             }
         }
 
-        windowTracker.setActionMessage("Applied managed layout to \(movedCount) of \(windows.count) windows.")
+        let message = "Applied managed layout to \(movedCount) of \(windows.count) windows."
+        windowTracker.setActionMessage(reason.map { "\($0). \(message)" } ?? message)
         refreshPermissionAndWindows(detectManagedWindowSetChanges: false)
     }
 
-    private func handleManagedWindowSetChange(previousKeys: Set<String>?, currentKeys: Set<String>) {
+    private func handleManagedWindowSetChange(previousKeys: Set<String>?, currentKeys: Set<String>, reason: String) {
         let decision = reflowPolicy.decisionForWindowSetChange(
             previousKeys: previousKeys,
             currentKeys: currentKeys
@@ -361,12 +363,16 @@ struct ContentView: View {
         syncManagedWindowSetBaseline()
 
         switch decision {
-        case .none:
-            return
+        case .baselineRecorded:
+            windowTracker.setActionMessage("\(reason) is now tracking \(currentKeys.count) managed windows.")
+        case .noManagedWindows:
+            windowTracker.setActionMessage("\(reason) found no managed windows.")
+        case .unchanged:
+            windowTracker.setActionMessage("\(reason) found no managed window changes.")
         case .notify:
             windowTracker.setActionMessage("Managed windows changed. Press Apply Managed Layout or enable Auto Reflow.")
         case .reflow:
-            applyManagedLayout()
+            applyManagedLayout(reason: "\(reason) detected managed window changes")
         }
     }
 
@@ -380,10 +386,11 @@ struct ContentView: View {
 
     private func refreshForWorkspaceChangeIfNeeded() {
         guard reflowPolicy.shouldRefreshForWorkspaceEvent() else {
+            windowTracker.setActionMessage("Workspace change ignored because Auto Reflow is off.")
             return
         }
 
-        refreshPermissionAndWindows()
+        refreshPermissionAndWindows(reason: "Workspace change")
     }
 
     private func syncManagedWindowSetBaseline() {
