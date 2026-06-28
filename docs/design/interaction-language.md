@@ -2,22 +2,32 @@
 
 This is a living document.
 
-Janus's interaction language has not yet been discovered.
+Janus's detailed interaction language has not yet been discovered, but the
+interaction values are already decided.
 
-Eventually, this document will describe the primitives and patterns that make
-Janus feel coherent:
+## Confirmed Values
 
-- Interaction primitives
-- Visual language
-- Motion
-- Terminology
-- Feedback
-- Transitions
-- Command vocabulary
+- Calm: Janus should avoid dramatic or noisy behavior.
+- Predictable: users should quickly understand where windows will go.
+- Reversible: automatic and manual changes need a clear correction path.
+- Native-feeling: controls, wording, and workflows should feel at home on
+  macOS.
+- Progressive: common actions should be visible; advanced control should be
+  discoverable without crowding the app.
 
-Those should not be invented here prematurely. They should emerge through use,
+## Current Language
+
+- Managed: a window Janus may arrange.
+- Floating: a window Janus leaves out of managed layouts.
+- Auto Reflow: opt-in automatic layout application after relevant window-set
+  changes.
+
+## Open Questions
+
+- What motion should Janus use when moving or previewing windows?
+- Should visual feedback be an overlay, inline status, window highlight, or a
+  combination?
+- Which commands should be mouse-first, keyboard-first, or equal in both paths?
+
+Do not invent the answers here prematurely. They should emerge through use,
 observation, and future RFCs.
-
-For now, the important constraint is that interaction design should preserve
-cognitive continuity. Janus should help users understand what changed, why it
-changed, and how to correct it when the app misunderstood their intent.

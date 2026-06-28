@@ -126,6 +126,11 @@ If multiple solutions exist, choose the simpler one.
 
 Janus is a thoughtful macOS window manager.
 
+For Janus, Codex may implement and maintain, but must not redefine product
+philosophy. Any product, UX, naming, visual, or interaction decision that
+changes project direction must be proposed explicitly and recorded in
+docs/design or docs/decisions before implementation.
+
 When multiple implementation approaches are possible:
 
 1. Prefer approaches that require less configuration.

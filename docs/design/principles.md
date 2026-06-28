@@ -3,6 +3,17 @@
 This is a living document. Principles describe how Janus should act on its
 beliefs.
 
+## Complement macOS
+
+Janus should feel like it belongs beside existing macOS behavior. It should not
+ask users to replace their mental model of the system before the app becomes
+useful.
+
+## Preserve User Intent
+
+Manual user actions are authoritative. Automation may help, but it should remain
+visible, reversible, and overridable.
+
 ## Communicate Intent, Not Implementation
 
 Janus should explain what it is doing in terms of the user's work, not its
@@ -14,6 +25,11 @@ user understand what will happen next.
 The default experience should make a clear recommendation. Flexibility should be
 available when the recommendation does not fit, but it should not be required
 before Janus becomes useful.
+
+## Minimal Configuration
+
+Configuration is a last resort. Reasonable defaults should solve common work
+without requiring TOML, YAML, scripting, or a rule engine.
 
 ## Defaults Should Solve Real Work
 
@@ -40,6 +56,12 @@ reconstruct before work can continue.
 
 Janus should prefer stable, understandable changes over aggressive reflow. The
 best layout is often the one that lets the user keep thinking.
+
+## Move Windows Predictably
+
+Window movement should be calm and explainable. Janus should avoid unnecessary
+reflow, and when it does move a window, the reason should be visible from the
+current interaction.
 
 ## Reduce Toil, Not Capability
 
