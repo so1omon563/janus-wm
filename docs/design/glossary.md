@@ -1,5 +1,30 @@
 # Glossary
 
+## Janus
+
+The product name for the macOS window manager.
+
+## JanusWM
+
+The internal/package name. Use this when the implementation needs a package or
+module identity distinct from the product name.
+
+## Thoughtful macOS window manager
+
+Janus's positioning. It means Janus should reduce window-management friction
+while preserving native macOS expectations, user control, and approachable
+defaults.
+
+## Managed
+
+A window state where Janus may include the window in its layout calculations.
+Managed does not mean Janus owns every future movement of that window.
+
+## Floating
+
+A window state where Janus should leave the window out of managed layout
+calculations. Floating windows are first-class, not exceptions.
+
 ## Context
 
 The meaningful work state a person is in or trying to recover. A context may
@@ -51,6 +76,12 @@ signal of intent.
 
 The behavior Janus chooses before the user customizes anything. A good default
 is opinionated, understandable, and based on real use.
+
+## Progressive Discovery
+
+The design value that common actions should be obvious while deeper controls
+become findable when they are relevant. Janus should not expose every possible
+option all at once.
 
 ## Belief
 
